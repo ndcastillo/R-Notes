@@ -38,8 +38,6 @@ Existen software que permiten automatizar este proceso, son los llamados `Data P
 
 [Amazon Data Pipeline: servicio ETL administrado (Amazon Web Services)](https://aws.amazon.com/es/datapipeline/)
 
-
-
 ## Niveles de Calidad y Depuración de Datos
 
 Podemos hablar de 3 niveles de calidad de datos:
@@ -78,8 +76,115 @@ Para la representación en tabla de la información.
 
 5. Se debe crear un buen concepto de resultados, estos deben comunicar algo acerca de los datos transformados.
 
+# Tidyverse en Ri
+
+`TidyVerse` es un conjunto de paquetes para la manipulación y estructuración de datos.
+
+Estos paquetes nos ayudaran a `importar datos`, colocarlos en un `formato ordenado` (tidy), buscar relaciones entre ellos, transformar, visualizar y con la creación de modelos. El tidyverse nos ayuda tambien a manipular datos de tipo fecha, cadenas de caracteres o factores.
+
+**Instalación de Tidyverse**
+
+```R
+install.packages("tidyverse")
+```
+
+**Cargar tidyverse**
+
+```R
+library(tidyverse)
+```
+
+El tidyverse contiente ocho paquetes principales que se los puede catalogar como Basicos e Intermedios:
+
+**Básicos**
+
+➡️ **ggplot2** (Visualizacion, Graficas y demas)
+
+➡️ **dplyr** (Transformaciones, Crear nuevos atributos seleccionando, filtrando sumando, acomodando, mutanto los datos existentes)
+➡️ **tidyr** (Estandarizacion de Tablas)
+➡️ **readr** (Para importar archivos de texto plano)
+➡️ **readxl** (Para importar archivos de excel)
+**Intermedios**
+
+➡️ **purr** (Trabajo con Vectores y Funciones)
+➡️ **tibble** (Viene a ser una transformación del data frame)
+➡️ **stringr** (Es un paquete para trabajar con un análisis de texto y manipulación de strings en casos.)
+➡️ **forcats** Generación de factores y datos categóricos.
+
+Para conocer los paquetes que trae nuestra libreria de tidyverse, utilizamos:
+
+```R
+tidyverse_packages()
+```
+
+## Tibble Package
+
+![](img/2022-05-08-18-38-21-image.png)
+
+Tibble es un generador de dataframes, que contiene mejoras que los generados por `data.frame` nativo de R. El tipo de dato generado por `tibble()` es de tipo `tbl_df`, definida por observaciones x variables. Me mostrara únicamente los primeros 10 registros/filas.
+
+```r
+require(tibble)
+x <- tibble(letras = letters)
+class(x)
+x
+```
+
+![](img/2022-05-08-18-01-30-image.png)
+
+El uso de `tribble` en una manipulación manual de tablas pequeñas, por ejemplo, para definir encabezados/atributos lo hacemos con la virgulilla `~`, y los valores vienen separados por comas.
+
+Parámetros de frecuencia de receptores de radio AM y FM.
+
+```r
+tribble(
+    ~frecuencyIF, ~service, ~bandwidth,
+    455e3,"FM",200e3,
+    10.7e6,"AM",10e3,
+)
+```
+
+![](img/2022-05-08-18-10-48-image.png)
+
+Otra función del paquete `tibble` a conocer seria `as_tibble()`, estos forzaran la transformación de los data.frame nativos de R a dataframes obtenidos del tidyverse.
+
+```r
+lineCode <- c("U-NRZ","U-RZ","P-NRZ","P-RZ","Manchester");
+bk <- c("{1,0}","{1,0}","{1,0}","{1,0}","{1,0}");
+ak <- c("{A,0}","{A,0}","{A,-A}","{A,-A}","{A,-A}");
+
+data <- data.frame(lineCode,bk,ak)
+```
+
+![](img/2022-05-08-18-33-43-image.png)
+
+```r
+dataT <- as_tibble(data)
+```
+
+![](img/2022-05-08-18-35-00-image.png)
+
+Ya con esto, podremos ingresar a los valores como cualquier dataframe, por ejemplo:
+
+```r
+data[,2]
+## [1] "{1,0}" "{1,0}" "{1,0}" "{1,0}" "{1,0}"
+data[1,]
+## 1    U-NRZ {1,0} {A,0}
+head(data)
+## 6 primeros datos
+view(data)
+## Observamos toda la data en una hoja de calculo en R
+nrow(data)
+## [1] 5       Numero de filas
+ncol(data)
+## [1] 3       Numero de Columnas
+dim(data)
+## [1] 5 3     Dimensiones del DataFrame
+```
+
+![](img/2022-05-08-18-50-45-image.png)
+
 #### Lista de Referencias
 
 [Pipelines | Kaggle](https://www.kaggle.com/code/alexisbcook/pipelines)
-
-

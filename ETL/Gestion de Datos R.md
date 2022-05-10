@@ -62,7 +62,7 @@ Hay que recordar que si encontrase con datos perdidos, estos influirán el proce
 
 **Esquema de trabajo en la ciencia de datos.**
 
-<img title="" src="img/2022-05-04-09-01-25-image.png" alt="" width="300">
+<img title="" src="img/2022-05-04-09-01-25-image.png" alt="" width="300" data-align="center">
 
 Para la representación en tabla de la información.
 
@@ -101,14 +101,21 @@ El tidyverse contiente ocho paquetes principales que se los puede catalogar como
 ➡️ **ggplot2** (Visualizacion, Graficas y demas)
 
 ➡️ **dplyr** (Transformaciones, Crear nuevos atributos seleccionando, filtrando sumando, acomodando, mutanto los datos existentes)
+
 ➡️ **tidyr** (Estandarizacion de Tablas)
+
 ➡️ **readr** (Para importar archivos de texto plano)
+
 ➡️ **readxl** (Para importar archivos de excel)
+
 **Intermedios**
 
 ➡️ **purr** (Trabajo con Vectores y Funciones)
+
 ➡️ **tibble** (Viene a ser una transformación del data frame)
+
 ➡️ **stringr** (Es un paquete para trabajar con un análisis de texto y manipulación de strings en casos.)
+
 ➡️ **forcats** Generación de factores y datos categóricos.
 
 Para conocer los paquetes que trae nuestra libreria de tidyverse, utilizamos:
@@ -184,6 +191,69 @@ dim(data)
 ```
 
 ![](img/2022-05-08-18-50-45-image.png)
+
+# Importación de datos
+
+Para el análisis de datos, siempre se estará trabajando con hojas de cálculo, o con archivos de texto plano, ya sean en formato xls, dbl, csv, txt, dat, etc. Debemos tener en cuenta que antes de realizar la importación, se haya hecho una inspección y una auditoria de los atributos para evitar problemas en la lectura de hojas de calculo, ademas ya completada el proceso de importación, estos seran manipulados como si fuesen `data.frame` nativo de R.
+
++ La primera tupla que se encuentra suele usarse para los atributos/encabezados.
+
++ La primera columna se suele utilizar para representar la unidad de **muestreo**. Es decir aquí se encontrara la secuencia temporal, serie temporales o fechas.
+
++ Se escoge la metodología para nombrar tabla SQL para los encabezados, ya sea colocando un "." o un "_" para concatenar palabras, pero nunca usar espacios.
+
++ De ser prioritario simplificar los nombres de los encabezados, de ser posible usar acronimos.
+
++ La hoja de calculo debe libre de comentarios y otros typo que existan, para evitar columnas adicionales o NA al archivo que se va a importar.
+
++ Los datos nulos o faltantes deben ser homogéneos a lo largo del documento, se puede utilizar NA, d/f,df,-,9999.
+
+En la inspección de los datos, lo conveniente seria abrirlo con `nano`,`vim`, `cat` u otro visor de texto. Esto para observar características de mi archivo de texto plano. Por ejemplo deberíamos observar:
+
+1. **Carácter separador**  (coma, punto y coma, etc)
+
+2. **Caracter para identificar el decimal** (Punto o coma)
+
+3. **Formato de datos faltantes** (Uso de NA, d/f,df)
+
+4. **Numero de filas**
+
+La importación de un tabla en .csv podremos realizarlo con:
+
+```r
+read.table() # separado por comas
+read.csv() # Separado por comas
+read.csv2() # Separado por punto y coma
+```
+
+![](img/2022-05-09-16-16-50-image.png)
+
+El comando mas versatil es `read.table()`, esta usara una serie de atributos con los cuales trabajara para funcionar.
+
+![](img/2022-05-09-15-33-36-image.png)
+
+Para cargar nuestro archivo de texto plano .csv, utilizamos
+
+```r
+my_csv <- read.table("./netflix.csv", header = TRUE)
+```
+
+Para cargar un archivo de excel, lo hacemos con:
+
+```r
+read_excel()
+read_xls()
+read_xlxs()
+```
+
+![](img/2022-05-09-16-02-15-image.png)
+
+Hay que recordar que este archivo tendremos no solo una hoja de texto, sino que un libro de hojas de calculo.
+
+```r
+mi_excel <- read.excel("netflix.xls", col_names = TRUE)
+head(mi_excel)
+```
 
 #### Lista de Referencias
 
